@@ -48,8 +48,13 @@ app.get('/profile', (req, res) => {
     jwt.verify(token, secret, {}, (err, info) => {
         if (err) throw err;
         res.json(info);
-    })
-})
+    });
+});
+
+app.post('/logout', (req, res) => {
+    // if logged out, reset cookie token to empty string
+    res.cookie('token', '').json('ok');
+});
 
 app.listen(4000);
 // mongodb+srv://blog:qNz46U6h2QTaCrmR@cluster0.cco02.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
