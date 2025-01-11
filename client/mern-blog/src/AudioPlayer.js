@@ -1,6 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import './AudioPlayer.css'
+import React, { useRef, useEffect, useState } from 'react';
 
 const AudioPlayer = () => {
+    const [songTitle] = useState("Persona 3 Reload - Color Your Night");
     const audioRef = useRef(null);
 
     // set default volume to 7%
@@ -11,18 +13,18 @@ const AudioPlayer = () => {
     }, []);
 
     return (
-        <div className="fixed bottom-4 right-4 z-50 w-64 bg-white rounded-lg shadow-lg p-3">
-        <audio
-            id="currentJam" 
-            ref={audioRef}
-            controls
-            autoPlay
-            loop
-            className="w-full"
-        >
-            <source src={require(".//music/Color Your Night.mp3")} type="audio/mpeg" />
-            Your browser does not support the audio element.
-        </audio>
+        <div className="audio-player">
+            <div className="song-title">{songTitle}</div>
+            <audio
+                ref={audioRef}
+                controls
+                autoPlay
+                loop
+                className="w-full"
+            >
+                <source src={require(".//music/Color Your Night.mp3")} type="audio/mpeg" />
+                Your browser does not support the audio element.
+            </audio>
         </div>
     );
 };
