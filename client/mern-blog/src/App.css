@@ -74,11 +74,11 @@ input{
 button{
   width: 100%;
   display: block;
-  background-color: white;
-  color: rgb(204, 94, 248);
+  color: white;
+  background-color: rgb(212, 124, 247);
   border-radius: 5px;
   padding: 6px 0;
 }
-form h1{
+form.login h1, form.register h1{
   text-align: center;
 }
