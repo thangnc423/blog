@@ -5,6 +5,7 @@ import { UserContext } from "./UserContext";
 export default function Header() {
   const {setUserInfo, userInfo} = useContext(UserContext);
   useEffect(() => {
+    console.log('userInfo after refresh:', userInfo);
     fetch('http://localhost:4000/profile', {
       credentials: 'include',
     }).then(response => {
