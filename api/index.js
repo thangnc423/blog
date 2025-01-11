@@ -31,11 +31,17 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
     const {username, password} = req.body;
     const userDoc = await User.findOne({username});
+    // if user is not found
+    if (!userDoc) {
+        return res.status(400).json("User not found");
+    }
     const passValid = bcrypt.compareSync(password, userDoc.password);
     if (passValid) {
         // correct username and password
         jwt.sign({username, id:userDoc._id}, secret, {}, (err, token) => {
-            if (err) throw err;
+            if (err) {
+                return res.status(500).json("Error creating token");
+            }
             res.cookie('token', token).json({
                 id:userDoc._id,
                 username,
