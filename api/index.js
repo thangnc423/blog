@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./models/User');
+const Post = require('./models/Post');
 const bcrypt = require('bcrypt');
 const app = express();
 const jwt = require('jsonwebtoken');
@@ -68,14 +69,23 @@ app.post('/logout', (req, res) => {
     res.cookie('token', '').json('ok');
 });
 
-app.post('/post', uploadMidddleware.single('file'), (req, res) => {
+app.post('/post', uploadMidddleware.single('file'), async (req, res) => {
     // handles new post creation requests
     const {originalname, path} = req.file;
     const parts = originalname.split('.');
     const extension = parts[parts.length -1];
     const newPath = path+'.'+extension
     fs.renameSync(path, newPath);
-    res.json({extension});
+
+    const {title, summary, content} = req.body;
+    const postDoc = await Post.create({
+        title,
+        summary, 
+        content, 
+        cover:newPath,
+    });
+
+    res.json(postDoc);
 });
 
 app.listen(4000);
