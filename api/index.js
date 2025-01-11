@@ -88,6 +88,10 @@ app.post('/post', uploadMidddleware.single('file'), async (req, res) => {
     res.json(postDoc);
 });
 
+app.get('/post', async (req, res) => {
+    res.json(await Post.find());
+});
+
 app.listen(4000);
 // mongodb+srv://blog:qNz46U6h2QTaCrmR@cluster0.cco02.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 // qNz46U6h2QTaCrmR
