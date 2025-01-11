@@ -10,7 +10,7 @@ export default function Header() {
       credentials: 'include',
     }).then(response => {
       response.json().then(userInfo => {
-        setUserInfo(userInfo.userInfo);
+        setUserInfo(userInfo);
       });
     });
   }, []);
